@@ -15,14 +15,7 @@ appTrab2.config(function ($routeProvider) {
             templateUrl: 'app/template/admin/campeao.view.html',
             controller: 'CampeaoController'
         })
-        .when('/login', {
-            templateUrl: 'app/template/login.view.html',
-            controller: 'SignController'
-        })
-        .when('/signup', {
-            templateUrl: 'app/template/signup.view.html',
-            controller: 'SignController'
-        })
+        
         .otherwise({ redirectTo: '/' });
 });
 
