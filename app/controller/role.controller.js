@@ -1,7 +1,7 @@
 (function( app ){
     'use strict';
     
-    app.controller('ProdutoController', function( $scope, ProdutoService, CategoriaService){
+    app.controller('RoleController', function( $scope, RoleService ){
      //Controle para OrderBy e Filter
      $scope.decrescente = false;
      $scope.selectedColumn = 'id';
@@ -28,12 +28,9 @@
  
      //Prepara a tela para um novo cadastro
      $scope.novo = function() {
-         //Representar o produto atual
-         $scope.produto = {
-             nome: '',
-             foto: '',
-             descricao: '',
-             preco: 0
+         //Representar o role atual
+         $scope.role = {
+             nome: ''
          }
  
          $scope.showTable = false;
@@ -44,36 +41,30 @@
          $scope.showTable = true;
      }
  
-     //Salvar a inclusão/edição do produto
+     //Salvar a inclusão/edição do role
      $scope.salvar = function() {
-         ProdutoService.salvar($scope.produto).then(function( result) {
+         RoleService.salvar($scope.role).then(function( result) {
              $scope.showTable = true;
          });
          
      }
  
-     //Editar o produto selecionado
-     $scope.editar = function(produto) {
-         $scope.produto = produto;
+     //Editar o role selecionado
+     $scope.editar = function(role) {
+         $scope.role = role;
          $scope.showTable = false;
      }
  
-     //Excluir o produto selecionado
+     //Excluir o role selecionado
      $scope.excluir = function() {
-         ProdutoService.remover($scope.produto).then(function(result){
+         RoleService.remover($scope.role).then(function(result){
              $scope.showTable = true;
          });
      }
  
-     //Carrega uma lista de produtos
-     ProdutoService.listar().then(function( result ){
-        $scope.categorias = []; 
-        $scope.produtos = result.data;
-
-    //Carrega as categorias
-        CategoriaService.listar().then(function(result2){
-            $scope.categorias = result2.data; 
-        });
+     //Carrega uma lista de roles
+     RoleService.listar().then(function( result ){
+         $scope.roles = result.data;
      });
  
     });

@@ -3,10 +3,10 @@
         <div class="container">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/admin/categorias">Categorias</a>
+                    <a class="nav-link" href="#!/admin/roles">Roles</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#!/admin/produtos">Produtos</a>
+                    <a class="nav-link" href="#!/admin/campeoes">Campeões</a>
                 </li>
             </ul>
         </div>
@@ -15,7 +15,7 @@
 <div id="admincontent" class="container">
     <div class="card">
         <div class="card-header">
-            Cadastro de Produtos
+            Cadastro de Campeões
             <span class="spacer"></span>
             <button class="btn btn-dark btn-sm" ng-click="novo()" ng-show="showTable">Novo</button>
         </div>
@@ -41,42 +41,35 @@
                                     ng-click="setColumn('nome')">Nome</button>
                             </th>
                             <th>
-                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'email'}"
-                                    ng-click="setColumn('email')">E-mail</button>
+                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'nacionalidade'}"
+                                    ng-click="setColumn('nacionalidade')">Nacionalidade</button>
                             </th>
                             <th>
-                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'cidade'}"
-                                    ng-click="setColumn('cidade')">Cidade</button>
+                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'role'}"
+                                    ng-click="setColumn('role')">Role</button>
                             </th>
                             <th colspan="2">
-                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'estado'}"
-                                    ng-click="setColumn('estado')">Estado</button>
+                                <button class="btn btn-link" ng-class="{'active': selectedColumn == 'winrate'}"
+                                    ng-click="setColumn('winrate')">Winrate</button>
                             </th>
                         </tr>
                     </thead>
-                    <tbody ng-if="clientes.length == 0">
+                    <tbody ng-if="campeaos.length == 0">
                         <tr>
                             <td colspan="6">
-                                <p class="lead text-center text-muted">Nenhum cliente foi cadastrado</p>
+                                <p class="lead text-center text-muted">Nenhum campeão foi cadastrado 😢</p>
                             </td>
                         </tr>
                     </tbody>
-                    <tbody ng-if="clientes.length > 0">
-                        <!--
-                            ng-repeat faz o que o bloco abaixo faria em Jsvascript (ou java)
-                            
-                            for (var n = 0; n < clientes.length; n++) {
-                                var cliente = clientes[n];
-                            }
-                        -->
-                        <tr ng-repeat="cliente in clientes | filter: filter() | orderBy: selectedColumn:decrescente">
-                            <td>{{ cliente.id }}</td>
-                            <td>{{ cliente.nome  }}</td>
-                            <td>{{ cliente.email }}</td>
-                            <td>{{ cliente.cidade }}</td>
-                            <td>{{ cliente.estado.nome }}</td>
+                    <tbody ng-if="campeaos.length > 0">
+                        <tr ng-repeat="campeao in campeaos | filter: filter() | orderBy: selectedColumn:decrescente">
+                            <td>{{ campeao.id }}</td>
+                            <td>{{ campeao.nome  }}</td>
+                            <td>{{ campeao.nacionalidade }}</td>
+                            <td>{{ campeao.role.nome }}</td>
+                            <td>{{ campeao.winrate | percentage }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-warning" ng-click="editar(cliente)">Editar</button>
+                                <button class="btn btn-sm btn-outline-warning" ng-click="editar(campeao)">Editar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -85,26 +78,26 @@
     
             <div ng-if="!showTable">
                 <div class="form-group">
-                    <label>Nome Completo</label>
-                    <input type="text" class="form-control" placeholder="Informe o nome completo" ng-model="cliente.nome">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" placeholder="Informe o nome do Campeão" ng-model="campeao.nome">
                 </div>
                 <div class="form-group">
-                    <label>E-mail</label>
-                    <input type="email" class="form-control" placeholder="Informe o e-mail" ng-model="cliente.email">
+                    <label>Nacionalidade</label>
+                    <input type="text" class="form-control" placeholder="Informe a nacionalidade" ng-model="campeao.nacionalidade">
                 </div>
                 <div class="form-group">
-                    <label>Cidade</label>
-                    <input type="text" class="form-control" placeholder="Informe a cidade" ng-model="cliente.cidade">
+                    <label>Role</label>
+                    <select class="form-control" ng-options="role.nome for role in roles track by role.id" ng-model="campeao.role"></select>
                 </div>
                 <div class="form-group">
-                    <label>Estado</label>
-                    <select class="form-control" ng-options="estado.nome for estado in estados track by estado.id" ng-model="cliente.estado"></select>
+                    <label>Winrate</label>
+                    <input type="number" placeholder="Informe a porcentagem de vitória. Ex.: 0.5 para 50%" class="form-control" ng-model="campeao.winrate">
                 </div>
             </div>
         </div>
     
         <div class="card-footer" ng-if="!showTable">
-            <button class="btn btn-danger" ng-if="cliente.id" data-toggle="modal"
+            <button class="btn btn-danger" ng-if="campeao.id" data-toggle="modal"
                 data-target="#confirmModal">EXCLUIR</button>
             <span class="spacer"></span>
             <button class="btn btn-light" ng-click="cancelar()">CANCELAR</button>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Bootstrap CSS -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- Custom Css -->
@@ -18,20 +19,22 @@
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/ngstorage/ngStorage.min.js"></script>
 </head>
+
 <body ng-app="appTrab2">
 
     <div ng-view></div>
-    
+
     <!-- Aplicação -->
     <script src="app.js"></script>
 
     <!-- Services da Aplicação -->
-    <script src="app/service/categoria.service.js"></script>
-    <script src="app/service/produto.service.js"></script>
+    <script src="app/service/role.service.js"></script>
+    <script src="app/service/campeao.service.js"></script>
 
     <!-- Controllers da Aplicação -->
     <script src="app/controller/site.controller.js"></script>
-    <script src="app/controller/categoria.controller.js"></script>
-    <script src="app/controller/produto.controller.js"></script>
+    <script src="app/controller/role.controller.js"></script>
+    <script src="app/controller/campeao.controller.js"></script>
 </body>
+
 </html>

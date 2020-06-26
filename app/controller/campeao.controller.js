@@ -1,7 +1,7 @@
 (function( app ){
     'use strict';
     
-    app.controller('CategoriaController', function( $scope, CategoriaService ){
+    app.controller('CampeaoController', function( $scope, CampeaoService, RoleService){
      //Controle para OrderBy e Filter
      $scope.decrescente = false;
      $scope.selectedColumn = 'id';
@@ -28,9 +28,12 @@
  
      //Prepara a tela para um novo cadastro
      $scope.novo = function() {
-         //Representar o categoria atual
-         $scope.categoria = {
-             nome: ''
+         //Representar o campeao atual
+         $scope.campeao = {
+             nome: '',
+             nacionalidade: '',
+             role: '',
+             winrate: 0
          }
  
          $scope.showTable = false;
@@ -41,30 +44,36 @@
          $scope.showTable = true;
      }
  
-     //Salvar a inclusão/edição do categoria
+     //Salvar a inclusão/edição do campeao
      $scope.salvar = function() {
-         CategoriaService.salvar($scope.categoria).then(function( result) {
+         CampeaoService.salvar($scope.campeao).then(function( result) {
              $scope.showTable = true;
          });
          
      }
  
-     //Editar o categoria selecionado
-     $scope.editar = function(categoria) {
-         $scope.categoria = categoria;
+     //Editar o campeao selecionado
+     $scope.editar = function(campeao) {
+         $scope.campeao = campeao;
          $scope.showTable = false;
      }
  
-     //Excluir o categoria selecionado
+     //Excluir o campeao selecionado
      $scope.excluir = function() {
-         CategoriaService.remover($scope.categoria).then(function(result){
+         CampeaoService.remover($scope.campeao).then(function(result){
              $scope.showTable = true;
          });
      }
  
-     //Carrega uma lista de categorias
-     CategoriaService.listar().then(function( result ){
-         $scope.categorias = result.data;
+     //Carrega uma lista de campeoes
+     CampeaoService.listar().then(function( result ){
+        $scope.roles = []; 
+        $scope.campeaos = result.data;
+
+    //Carrega as roles
+        RoleService.listar().then(function(result2){
+            $scope.roles = result2.data; 
+        });
      });
  
     });

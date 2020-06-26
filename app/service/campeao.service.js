@@ -1,48 +1,48 @@
 (function (app) {
     'use strict';
 
-    app.service('ProdutoService', function ($q, $localStorage) {
+    app.service('CampeaoService', function ($q, $localStorage) {
         const deferred = $q.defer();
 
         function loadJSON() {
-            deferred.resolve({ data: $localStorage.produtos || [] });
+            deferred.resolve({ data: $localStorage.campeaos || [] });
 
             return deferred.promise;
         }
 
-        function save(produto) {
-            var dados = $localStorage.produtos || [];
+        function save(campeao) {
+            var dados = $localStorage.campeaos || [];
 
-            if (!produto.id) {
+            if (!campeao.id) {
                 //Pega o ultimo registro
                 var ultimo = dados[dados.length - 1];
 
                 //Incrementa o valor de ID o ultimo registro
-                produto.id = ultimo ? ultimo.id + 1 : 1;
+                campeao.id = ultimo ? ultimo.id + 1 : 1;
 
-                //Adiciona o produto no vetor
-                dados.push(produto);
+                //Adiciona o campeao no vetor
+                dados.push(campeao);
 
                 //Devolve o vetor para o localstorage
-                $localStorage.produtos = dados;
+                $localStorage.campeaos = dados;
             }
 
-            deferred.resolve(produto);
+            deferred.resolve(campeao);
 
             return deferred.promise;
         }
 
-        function remove( produto ) {
-            var dados = $localStorage.produtos;
+        function remove( campeao ) {
+            var dados = $localStorage.campeaos;
 
-            //Procura o index do produto que está vindo por parametro
-            var index = dados.indexOf( produto );
+            //Procura o index do campeao que está vindo por parametro
+            var index = dados.indexOf( campeao );
 
             //Remove a partir do indice uma qtdade de elementos, no caso 1
             dados.splice(index, 1)
 
             //Atualioza local storage
-            $localStorage.produtos = dados;
+            $localStorage.campeaos = dados;
 
             deferred.resolve({data: dados});
             return deferred.promise;

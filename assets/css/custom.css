@@ -21,3 +21,6 @@
 .spacer {
     flex: 1 1 auto;
 }
+.sitecontent{
+    padding-top: 56px;
+}
